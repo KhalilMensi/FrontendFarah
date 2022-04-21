@@ -1,0 +1,128 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+
+    <form [formGroup]="updateForm" (ngSubmit)="updateFlexEmployee()" autocomplete="off">
+
+        <div class="container rounded bg-white mt-5 mb-5 shadow-lg" style="margin-left:5%">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold" style="font-family: 'Montserrat', sans-serif;">Email :</span>
+                        <span class="text-black-50">{{employee.email}}</span>
+                    </div>
+                </div>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile Settings</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">Full Name</label>
+                                <input 
+                                    [class.is-invalid]='updateForm.get("userName").errors 
+                                    && updateForm.get("userName").touched'
+                                    formControlName="userName"
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="full name">
+                                <div class="invalid-feedback">Please enter your name</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Departement</label>
+                                <input 
+                                    [class.is-invalid]='updateForm.get("department").errors 
+                                    && updateForm.get("department").touched'
+                                    formControlName="department"    
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="departement">
+                                <div class="invalid-feedback">Please enter your department</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="labels">Phone Number</label>
+                                <input 
+                                    [class.is-invalid]='updateForm.get("phoneNumber").errors 
+                                    && updateForm.get("phoneNumber").touched'
+                                    formControlName="phoneNumber"
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="enter phone number">
+                                <div class="invalid-feedback">Please enter your phone number</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Gender</label>
+                                <input 
+                                    [class.is-invalid]='updateForm.get("gender").errors 
+                                    && updateForm.get("gender").touched'
+                                    formControlName="gender"
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="enter your gender">
+                                <div class="invalid-feedback">Please enter your gender</div>
+                            </div>
+                            <label class="labels mt-3">this area is optional if you want to reset  your password</label>
+                            <div class="card ml-3 pb-3">
+                                <div class="col-md-12">
+                                    <label class="labels">Old password</label>
+                                    <input 
+                                        [class.is-invalid]='updateForm.get("oldPassword").errors 
+                                        && updateForm.get("oldPassword").touched'
+                                        formControlName="oldPassword"
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="enter your old Password"
+                                        autocomplete="new-password">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="labels">New password</label>
+                                    <input 
+                                        [class.is-invalid]='updateForm.get("newPassword").errors 
+                                        && updateForm.get("newPassword").touched'
+                                        formControlName="newPassword"
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="enter the new Password"
+                                        autocomplete="new-password">
+                                        <div class="invalid-feedback">length > 7</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="labels">Confirm new password</label>
+                                    <input 
+                                        [class.is-invalid]='updateForm.get("confirmNewPassword").errors 
+                                        && updateForm.get("confirmNewPassword").touched'
+                                        formControlName="confirmNewPassword"
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="confirm the new Password"
+                                        autocomplete="new-password">
+                                        <div class="invalid-feedback">the passwords don't match</div>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-danger">{{errorMsg}}</small>
+                        <div class="mt-5 text-center">
+                            <button [disabled]="!updateForm.valid" type="submit" class=" btn border px-3 p-1 add-experience btn-primary profile-button">
+                                <i class="fa fa-edit"></i>&nbsp;Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+
+
+</div>
+<!-- Footer -->
+<app-footer></app-footer>
+<!-- End of Footer -->

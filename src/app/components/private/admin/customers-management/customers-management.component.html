@@ -1,0 +1,209 @@
+<app-topbar></app-topbar>
+<div style="display: flex; flex-grow: grow" class="bg-light">
+    <app-sidebar></app-sidebar>
+    <div class="accordion container mt-1" id="accordionExample">
+        <h3 style="font-family: 'Montserrat', sans-serif;">Entreprises Contact</h3>
+        <form class="d-flex align-items-center " style="width:50%">
+            <input class="form-control me-2  small mx-1  " [ngModelOptions]="{standalone: true}" [(ngModel)]="entrepriseName" type="search" placeholder="Name " aria-label="Search">
+            <button class="btn btn-outline-primary mx-2 " type="submit" (click)="search()">Search</button>
+            <button class="btn btn-primary " style="width:100%" data-bs-toggle="modal" data-bs-target="#addEntrpriseModal">Add Entreprise</button>
+        </form>
+        <div class="accordion-item shadow-lg mt-2" *ngFor="let clientEntreprise of clientEntreprises;let i = index;">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse(i)">
+                    <div class="container" >
+                        <div class="row row-cols-4">
+                            <!-- <div class="col  h6 ">{{i}}</div> -->
+                            <div class="col  h6 ">{{clientEntreprise.name}}</div>
+                            <div class="col  h6 ">{{clientEntreprise.email}}</div>
+                            <div class="col  h6 ">{{clientEntreprise.type}}</div>
+                            <div class="col  h6 ">
+                                <a (click)="putActualValues(clientEntreprise)" class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="modal" data-bs-target="#updateFormModal">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a (click)="putActualValues(clientEntreprise)"
+                                    class="btn btn-sm btn-outline-primary mx-1" data-bs-toggle="modal"
+                                    data-bs-target="#detailsFormModal">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a title="Delete" (click)="open(content,clientEntreprise.id)" href="javascript:void(0);"
+                                    class="btn btn-sm btn-outline-primary"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <div [attr.id]='"collapse"+ i' class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <h4 style="color: rgb(255, 255, 255);font-family: 'Montserrat', sans-serif;">Employees Contact</h4>
+                        <hr class="bg-light">
+                        <table class="table table-hover table-dark fs-5">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="font-family: 'Montserrat', sans-serif;">Full Name</th>
+                                    <th scope="col" style="font-family: 'Montserrat', sans-serif;">Email</th>
+                                    <th scope="col" style="font-family: 'Montserrat', sans-serif;">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let clientEmployee of clientEntreprise.employees">
+                                <tr>
+                                    <td class="h6">{{clientEmployee.userName}}</td>
+                                    <td class="h6">{{clientEmployee.email}}</td>
+                                    <td class="h6">{{clientEmployee.phoneNumber}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </h2>
+        </div>
+    </div>
+</div>
+<!-- Modal Add Entreprise -->
+<div class="modal fade" id="addEntrpriseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Customer Entreprise</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" [formGroup]="registerForm" (ngSubmit)="addClientEntreprise()" autocomplete="off">
+                    <div class="mb-3 mb-sm-0 ">
+                        <input [class.is-invalid]='registerForm.get("name").errors 
+                            && registerForm.get("name").touched' type="text" class="form-control form-control-user" placeholder="Entreprise Name" formControlName="name">
+                        <div class="invalid-feedback">Please enter Entreprise name</div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <div class="col-sm-6 ">
+                            <input [class.is-invalid]='registerForm.get("email").errors 
+                                && registerForm.get("email").touched' type="text" class="form-control form-control-user" id="examplePhoneNumber" placeholder="email" formControlName="email">
+                            <div class="invalid-feedback">Please enter the email address</div>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0 ">
+                            <div>
+                                <input type="radio" value="Client" name="type" formControlName="type" (change)="changeRole($event)">
+                                <label for="Client">Client</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" value="Prospect" name="type" formControlName="type" (change)="changeRole($event)">
+                                <label for="Prospect">Prospect</label>
+                            </div>
+                            <div class="invalid-feedback">Please select a Role</div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input [class.is-invalid]='registerForm.get("address").errors 
+                            && registerForm.get("address").touched' type="text" class="form-control form-control-user" id="exampleInputAddress" placeholder="Address" formControlName="address">
+                        <div class="invalid-feedback">Please enter the address</div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!registerForm.valid">Add</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal Update Employee -->
+<div class="modal fade" id="updateFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update Customer Entreprise</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" [formGroup]="updateForm" (ngSubmit)="updateClientEntreprise()" autocomplete="off">
+                    <div class="mb-3 mb-sm-0 ">
+                        <input [class.is-invalid]='updateForm.get("name").errors 
+                            && updateForm.get("name").touched' type="text" class="form-control form-control-user" id="name" placeholder="Entreprise Name" formControlName="name">
+                        <div class="invalid-feedback">Please enter Entreprise name</div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='updateForm.get("email").errors 
+                                    && updateForm.get("email").touched' type="email" class="form-control form-control-user" placeholder="Entreprise@gmail.com" formControlName="email">
+                            <div class="invalid-feedback">Please enter a valid email</div>
+                        </div>
+                        <div class="mt-3">
+                            <input type="radio" value="Client" name="type" formControlName="type" (change)="changeRole($event)">
+                            <label for="Client">Client</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" value="Prospect" name="type" formControlName="type" (change)="changeRole($event)">
+                            <label for="Prospect">Prospect</label>
+                        </div>
+                        <div class="invalid-feedback">Please select a Role</div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input [class.is-invalid]='updateForm.get("address").errors 
+                            && updateForm.get("address").touched' type="text" class="form-control form-control-user" placeholder="Address" formControlName="address">
+                        <div class="invalid-feedback">Please enter the Entreprise address</div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!updateForm.valid">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Details Employee -->
+<div class="modal fade" id="detailsFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Details Customer Entreprise</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" [formGroup]="updateForm">
+                    <div class="mb-3 mb-sm-0 ">
+                        <label class="mb-1" style="font-family: 'Montserrat', sans-serif;">Name</label>
+                        <input class="form-control" formControlName="name" [attr.disabled]="true">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="mb-1" style="font-family: 'Montserrat', sans-serif;">Email</label>
+                        <input class="form-control " formControlName="email" [attr.disabled]="true">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="mb-1" style="font-family: 'Montserrat', sans-serif;">Type</label>
+                        <input class="form-control" formControlName="type" [attr.disabled]="true">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="mb-1" style="font-family: 'Montserrat', sans-serif;">Address</label>
+                        <input class="form-control" formControlName="address" [attr.disabled]="true">
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete PopUp-->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header" style="background-color: rgb(151, 193, 229);">
+        <h4 class="modal-title" id="modal-basic-title" style="color: rgb(71, 107, 185);">Confirmation</h4>
+        <button type="button" class="close btn-outline-primary" aria-label="Close" (click)="d('Cross click')">    
+            <span aria-hidden="true">×</span>    
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure to <strong style="color: rgb(82, 122, 207);">delete</strong> this?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+        <button type="button" class="btn btn-outline-primary" (click)="c('yes')">Yes</button>
+    </div>
+</ng-template>

@@ -1,0 +1,46 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container-fluid">
+        <img src="favicon.ico" alt="logo" style="margin-right: 5%;">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-3 me-auto mb-2 mb-lg-1 nav nav-tabs">
+                <li class="nav-item active">
+                    <a class="nav-link active" [routerLink]="['/']">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/about']">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="nav " style="margin-right: 90px;">
+                <li class="nav-item ">
+                    <a class="navbar-btn mt-1" style="text-decoration: none;" [routerLink]="['/login']">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="mx-3 mt-1" [routerLink]="['/register']" style="text-decoration: none;">Register</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class=" mt-1" [routerLink]="['/login']">Logout</a>
+                </li> -->
+                <li class="nav-item  mt-0">
+                    <div class="dropdown">
+                        <a class=" dropdown-toggle" style="text-decoration: none;" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                          English
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><button class="dropdown-item" type="button">Frensh</button></li>
+                            <li><button class="dropdown-item" type="button">Arabic</button></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

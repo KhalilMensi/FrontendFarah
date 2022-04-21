@@ -1,0 +1,65 @@
+.sidebar-nav ul li a {
+    font-size: 26px;
+    text-decoration: none;
+    display: block;
+    padding: 6px 10px;
+    transition: 0.5s;
+}
+
+li {
+    cursor: pointer;
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: #025196af;
+    border-radius: 4px;
+}
+
+.sidebar-nav .offcanvas {
+    width: 220px;
+    border: none;
+}
+
+.sidebar-nav .offcanvas ul li a span {
+    font-size: 18px;
+    position: relative;
+    top: -4px;
+    transition: 0.5s;
+}
+
+.sidebar-nav .offcanvas.show ul li a:hover span {
+    padding-left: 10px;
+}
+
+.sidebar-nav .dropdown-toggle::after {
+    position: relative;
+    top: 3px;
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+    margin-right: 5px;
+}
+
+
+/* img {
+    border-radius: 40%;
+    max-width: 50%;
+    max-height: 50%;
+} */
+
+.sidebar1 {
+    background: #049bff;
+    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#2e8bdd, #0071BD, #0071BD);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#2e7fcc, #1761eb, #016FBA);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#0071BD, #0a5eac, #0071BD);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#70b1e9, #3f91d4, #0071BD);
+    /* Standard syntax */
+    padding: 0px;
+    min-height: 100%;
+}

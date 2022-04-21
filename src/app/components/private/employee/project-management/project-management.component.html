@@ -1,0 +1,176 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 style="font-family: 'Arial';color: #025196af">Projects Management</h3>
+            </div>
+            <div class="row">
+                <ul ngbNav #nav="ngbNav" class="nav-tabs bg-light">
+                    <!--Quotes-->
+                    <li ngbNavItem>
+                        <a ngbNavLink style="font-family: 'Arial';color: #025196af">Quotes</a>
+                        <ng-template ngbNavContent>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="line">
+                                        <th colspan="2">Customer</th>
+                                        <th colspan="2">Subject</th>
+                                        <th colspan="2">Start Date</th>
+                                        <th colspan="2">Delivery Date</th>
+                                        <th colspan="2">Attached file</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let entreprise of clientEntreprisesQuotes;">
+                                    <tr class="table-light" *ngFor="let quote of entreprise.projects;">
+                                        <td>
+                                            <h6>{{entreprise.name}}</h6>
+                                        </td>
+                                        <td>{{quote.subject}}</td>
+                                        <td>{{quote.startDate | date:'dd/mm/yyyy'}}</td>
+                                        <td>{{quote.deliveryDate | date:'dd/mm/yyyy'}}</td>
+                                        <td> <a href="{{quote.document.url}}">click here</a></td>
+                                        <td>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateFormModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary mx-1" data-bs-toggle="modal" data-bs-target="#detailsFormModal">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a title="Delete" (click)="open(content,quote.id)" href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                    <!--Contracts-->
+                    <li ngbNavItem>
+                        <a ngbNavLink style="font-family: 'Arial';color: #025196af">Contracts</a>
+                        <ng-template ngbNavContent>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="line">
+                                        <th colspan="2">Customer</th>
+                                        <th colspan="2">Subject</th>
+                                        <th colspan="2">Start Date</th>
+                                        <th colspan="2">Delivery Date</th>
+                                        <th colspan="2">Attached file</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let entreprise of clientEntreprisesContracts;">
+                                    <tr class="table-light" *ngFor="let quote of entreprise.projects;">
+                                        <td>
+                                            <h6>{{entreprise.name}}</h6>
+                                        </td>
+                                        <td>{{quote.subject}}</td>
+                                        <td>{{quote.startDate | date:'dd/mm/yyyy'}}</td>
+                                        <td>{{quote.deliveryDate | date:'dd/mm/yyyy'}}</td>
+                                        <td></td>
+                                        <td>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateFormModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary mx-1" data-bs-toggle="modal" data-bs-target="#detailsFormModal">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a title="Delete" (click)="open(content,quote.id)" href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                    <!--Projects In Progress-->
+                    <li ngbNavItem>
+                        <a ngbNavLink style="font-family: 'Arial';color: #025196af">Projects In Progress</a>
+                        <ng-template ngbNavContent>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="line">
+                                        <th colspan="2">Customer</th>
+                                        <th colspan="2">Subject</th>
+                                        <th colspan="2">Start Date</th>
+                                        <th colspan="2">Delivery Date</th>
+                                        <th colspan="2">Attached file</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let entreprise of clientEntreprisesInProgress;">
+                                    <tr class="table-light" *ngFor="let quote of entreprise.projects;">
+                                        <td>
+                                            <h6>{{entreprise.name}}</h6>
+                                        </td>
+                                        <td>{{quote.subject}}</td>
+                                        <td>{{quote.startDate | date:'dd/mm/yyyy'}}</td>
+                                        <td>{{quote.deliveryDate | date:'dd/mm/yyyy'}}</td>
+                                        <td></td>
+                                        <td>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateFormModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary mx-1" data-bs-toggle="modal" data-bs-target="#detailsFormModal">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a title="Delete" (click)="open(content,quote.id)" href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                    <!--Projects In Maintenance-->
+                    <li ngbNavItem>
+                        <a ngbNavLink style="font-family: 'Arial';color: #025196af">Projects In Maintenance</a>
+                        <ng-template ngbNavContent>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="line">
+                                        <th colspan="2">Customer</th>
+                                        <th colspan="2">Subject</th>
+                                        <th colspan="2">Start Date</th>
+                                        <th colspan="2">Delivery Date</th>
+                                        <th colspan="2">Attached file</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let entreprise of clientEntreprisesMaintenance;">
+                                    <tr class="table-light" *ngFor="let quote of entreprise.projects;">
+                                        <td>
+                                            <h6>{{entreprise.name}}</h6>
+                                        </td>
+                                        <td>{{quote.subject}}</td>
+                                        <td>{{quote.startDate | date:'dd/mm/yyyy'}}</td>
+                                        <td>{{quote.deliveryDate | date:'dd/mm/yyyy'}}</td>
+                                        <td></td>
+                                        <td>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateFormModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a (click)="putActualValues(quote)" class="btn btn-sm btn-outline-primary mx-1" data-bs-toggle="modal" data-bs-target="#detailsFormModal">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a title="Delete" (click)="open(content,quote.id)" href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<app-footer></app-footer>
+<!-- End of Footer -->

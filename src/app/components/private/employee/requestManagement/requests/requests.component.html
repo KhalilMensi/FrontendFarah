@@ -1,0 +1,111 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+    <div class="container mt-3 ">
+        
+        <div class="accordion container mt-1" id="accordionExample">
+            <h3 style="font-family: 'Montserrat', sans-serif;">Customer Requests</h3>
+            <form class="d-flex align-items-center " style="width:30%">
+                <input class="form-control me-2  small mx-1  " type="search" placeholder="Search.. " aria-label="Search">
+                <button class="btn btn-outline-primary mx-2 " type="submit">Search</button>
+            </form>
+            <div class="accordion-item shadow-lg mt-2" *ngFor="let clientEntreprise of clientEntreprises;let i = index;">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse(i)">
+                        <div class="container" >
+                            <div class="row row-cols-3">
+                                <!-- <div class="col  h6 ">{{i}}</div> -->
+                                <div class="col  h6 ">{{clientEntreprise.name}}</div>
+                                <div class="col  h6 ">{{clientEntreprise.email}}</div>
+                                <div class="col  h6 ">{{clientEntreprise.type}}</div>
+                            </div>
+                        </div>
+                    </button>
+                    <div [attr.id]='"collapse"+ i' class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <h4 style="color: rgb(255, 255, 255);font-family: 'Montserrat', sans-serif;">Projects</h4>
+                            <hr class="bg-light">
+                            <div *ngFor="let project of clientEntreprise.projects; let j = index;" class="mt-2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapseRequest(j)">
+                                    <div class="container" >
+                                        <div class="row">
+                                            <!-- <div class="col  h6 ">{{i}}</div> -->
+                                            <div class="col-1">{{project.id}}</div>
+                                            <div class="col-7">{{project.subject}}</div>
+                                            <div class="col-4"> 
+                                                <a  class="btn btn-s btn-outline-primary col-3"
+                                                data-bs-toggle="modal" data-bs-target="#detailsFormModal" (click)="getProjectFrontEnd(project)">
+                                                    <i class="fas fa-cloud-upload-alt"> File</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                                <div class="container bootstrap snippets bootdey col-xl-10" [attr.id]='"collapseRequest"+ j' class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="profile card">
+                                        <div class="profile-body">
+                                            <div class="profile-bio">
+                                                <div class="row">
+
+                                                    <div class="col-xl-10">
+                                                        
+                                                        <span>
+                                                            <img class="g-width-50 g-height-50 rounded-circle avatar" src="https://bootdey.com/img/Content/user_1.jpg">
+                            
+                                                            <strong>Customer:</strong> {{clientEntreprise.name}}</span><br><br>
+                                                        <img class="img-circle" src="https://bootdey.com/img/Content/icons/32/PNG/32/clock.png">
+
+                                                        <span><strong>Date Submitted:</strong> {{project.creationDate}}</span><br>
+                                                        <hr>
+                                                        <span><strong>Description:</strong></span>
+                                                        <div [innerHtml]="project.description"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Update Employee -->
+    <div class="modal fade" id="detailsFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: radial-gradient( circle farthest-corner at 0.5% 3.8%, rgb(99, 181, 219) 0.1%, rgba(10,95,186,1) 61.7%, rgb(37, 52, 188) 90% );">
+                    <h5 class="modal-title" id="staticBackdropLabel" style="color: rgb(255, 255, 255);">Attach File Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fileNull()"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" autocomplete="off" (ngSubmit)="submitQuote()">
+                        <label
+                            for="uploadFile"
+                            style ="display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: 100%;"
+                            class="card bg-faded p-2 text-center mb-3 my-drop-zone">
+                            <i class="fa fa-upload fa-3x"></i>
+                            Click to select the Quote
+                        </label>
+                        <label class="text-warning mb-3">{{file==null?'select a file to activate the submit button':''}}</label>
+                        <label class="text-info mb-3">{{file!=null?file.name+"is selected":''}}</label>
+                        
+                        <button type="submit" data-bs-dismiss="modal" [disabled]="file==null ?true:false" class="btn form-control btn-outline-primary">submit</button>
+                        <input id ="uploadFile"  name="uploadFile" type="file" style="display:none" (change)="fileChange($event)" accept=".pdf,.doc,.docx">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

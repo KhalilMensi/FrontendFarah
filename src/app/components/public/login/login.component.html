@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="bg-primary p-5 text-dark bg-opacity-25 ">
+    <div class="container mt-4">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                <img src="../../../../assets/images/Login.png" alt="">
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">{{language.loginTitle}}</h1>
+                                    </div>
+                                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                        <div class="form-floating form-group">
+                                            <input [class.is-invalid]='loginForm.get("email").errors 
+                                                && loginForm.get("email").touched' formControlName="email" type="email" class="form-control form-control-user" id="floatingInput" aria-describedby="emailHelp" placeholder="Enter Email Address..." required>
+                                            <label for="floatingInput">Email address</label>
+                                            <div class="invalid-feedback">Please enter your email</div>
+                                        </div>
+                                        <div class="form-floating form-group mt-4">
+                                            <input [class.is-invalid]='loginForm.get("password").errors 
+                                                && loginForm.get("password").touched' formControlName="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <label for="floatingPassword">Password</label>
+                                            <div class="invalid-feedback">Please enter a password</div>
+                                        </div>
+                                        <small class="text-danger">{{errorMsg}}</small>
+                                        <br/>
+                                        <button id="btn" type="submit" class="btn btn-primary btn-user btn-block " [disabled]="!loginForm.valid">
+                                            Login
+                                        </button>
+                                    </form>
+
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="./forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="./register.html">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

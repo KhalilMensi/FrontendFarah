@@ -1,0 +1,355 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 style="font-family: 'Arial';color: #025196af">Track My Projects</h3>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <div class="text-center mb-5">
+                        <h3>♦How Can You Track Your Project♦</h3>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#trackProjectExplanation">Explanation</button>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="accordion container mt-1 pb-3" id="accordionExample">
+                            <h3 style="font-family: 'Montserrat', sans-serif;">My projects</h3>
+                            <!-- <form class="d-flex align-items-center " style="width:30%">
+                                <input class="form-control me-2  small mx-1  " type="search" placeholder="Search.. " aria-label="Search">
+                                <button class="btn btn-outline-primary mx-2 " type="submit">Search</button>
+                            </form> -->
+                            <div class="accordion-item shadow-lg mt-2">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse('collapseRequests')">
+                                        <div class="container" >
+                                            <div class="row row-cols-3">
+                                                <div class="col  h6 ">Non treated requests</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div [attr.id]="'collapseRequests'" class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="card-body bg-dark">
+                                                <table class="table table-hover table-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="h6 col-1">#</th>
+                                                            <th scope="col" class="h6 col-3">Creation Date</th>
+                                                            <th scope="col" class="h6 col-8">Subject</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let request of requests;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                                                        <tr>
+                                                            <th scope="row" class="h6">{{i}}</th>
+                                                            <td class="h6">{{request.creationDate | date:'MMMM d, y' }}</td>
+                                                            <td class="h6">{{request.subject}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary dropdown-toggle  btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                select Action
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="seeRequestDetails(request)" data-bs-toggle="modal" data-bs-target="#seeRequestDetailsModal">See details</a></li>
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="putActualValues(request)" data-bs-toggle="modal" data-bs-target="#updateFormModal">Update</a></li>
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteRequest(request.id)">Delete</a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="accordion-item shadow-lg mt-2">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse('collapseQuote')">
+                                        <div class="container">
+                                            <div class="row row-cols-3">
+                                                <div class="col  h6 ">Quotes (treated requests)</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div [attr.id]="'collapseQuote'" class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="card-body bg-dark">
+                                                <table class="table table-hover table-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="h6 col-1">#</th>
+                                                            <th scope="col" class="h6 col-2">Creation Date</th>
+                                                            <th scope="col" class="h6 col-8">Subject</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let quote of quotes;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                                                        <tr>
+                                                            <th scope="row" class="h6">{{i}}</th>
+                                                            <td class="h6">{{quote.creationDate | date:'MMMM d, y' }}</td>
+                                                            <td class="h6">{{quote.subject}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                select Action
+                                                            </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="seeDetails(quote);seeRequestDetails(quote)" data-bs-toggle="modal" data-bs-target="#seeDetailsModal">See detailts</a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="accordion-item shadow-lg mt-2">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse('collapseContract')">
+                                        <div class="container" >
+                                            <div class="row row-cols-3">
+                                                <div class="col  h6 ">Contracts</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div [attr.id]="'collapseContract'" class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="card-body bg-dark">
+                                                <table class="table table-hover table-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="h6 col-1">#</th>
+                                                            <th scope="col" class="h6 col-3">Creation Date</th>
+                                                            <th scope="col" class="h6 col-8">Subject</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let contract of contracts;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                                                        <tr>
+                                                            <th scope="row" class="h6">{{i}}</th>
+                                                            <td class="h6">{{contract.creationDate | date:'MMMM d, y' }}</td>
+                                                            <td class="h6">{{contract.subject}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                select Action
+                                                            </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="putActualValues(flexEmployee)" data-bs-toggle="modal" data-bs-target="#updateFormModal">Update</a></li>
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteFlexEmployee(flexEmployee.id)">Delete</a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="accordion-item shadow-lg mt-2">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse('collapseInProgress')">
+                                        <div class="container" >
+                                            <div class="row row-cols-3">
+                                                <div class="col  h6 ">Projects in progress</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div [attr.id]="'collapseInProgress'" class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="card-body bg-dark">
+                                                <table class="table table-hover table-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="h6 col-1">#</th>
+                                                            <th scope="col" class="h6 col-3">Creation Date</th>
+                                                            <th scope="col" class="h6 col-8">Subject</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let oneInProgress of inProgress;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                                                        <tr>
+                                                            <th scope="row" class="h6">{{i}}</th>
+                                                            <td class="h6">{{oneInProgress.creationDate | date:'MMMM d, y' }}</td>
+                                                            <td class="h6">{{oneInProgress.subject}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                select Action
+                                                            </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="putActualValues(flexEmployee)" data-bs-toggle="modal" data-bs-target="#updateFormModal">Update</a></li>
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteFlexEmployee(flexEmployee.id)">Delete</a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="accordion-item shadow-lg mt-2">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="openCollapse('collapseMaintenance')">
+                                        <div class="container" >
+                                            <div class="row row-cols-3">
+                                                <div class="col  h6 ">Projects in maintenance</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div [attr.id]="'collapseMaintenance'" class="accordion-collapse collapse bg-dark" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="card-body bg-dark">
+                                                <table class="table table-hover table-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="h6 col-1">#</th>
+                                                            <th scope="col" class="h6 col-3">Creation Date</th>
+                                                            <th scope="col" class="h6 col-8">Subject</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let oneMaintenance of maintenance;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                                                        <tr>
+                                                            <th scope="row" class="h6">{{i}}</th>
+                                                            <td class="h6">{{oneMaintenance.creationDate | date:'MMMM d, y' }}</td>
+                                                            <td class="h6">{{oneMaintenance.subject}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                select Action
+                                                            </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="putActualValues(flexEmployee)" data-bs-toggle="modal" data-bs-target="#updateFormModal">Update</a></li>
+                                                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteFlexEmployee(flexEmployee.id)">Delete</a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modals-->
+<!--See request details modal-->
+<div class="modal fade" id="seeRequestDetailsModal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" >
+                    <h5 class="modal-title" id="staticBackdropLabel">Explanation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <strong>Subject:</strong> {{request.subject}}<br>
+                    <strong>Date Submitted:</strong> {{request.creationDate | date:'MMMM d, y'}}<br>
+                    <hr>
+                    <strong>Description:</strong>
+                    <div [innerHtml]="request.description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--See quote details-->
+<div class="modal fade" id="seeDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Attach File Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fileNull(); projectNull()"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <ul ngbNav #nav="ngbNav" class="nav-tabs bg-light">
+                        <li ngbNavItem>
+                            <a ngbNavLink style="font-family: 'Arial';color: #025196af">Requests</a>
+                            <ng-template ngbNavContent>
+                                <div class="container">
+                                    <strong>Subject:</strong> {{request.subject}}<br>
+                                    <strong>Date Submitted:</strong> {{request.creationDate | date:'MMMM d, y'}}<br>
+                                    <hr>
+                                    <strong>Description:</strong>
+                                    <div [innerHtml]="request.description"></div>
+                                </div>
+                                <div *ngFor="let document of documents">    
+                                    <a href="{{document.url}}" target="_blank">click to see the quote</a>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li ngbNavItem>
+                            <a ngbNavLink style="font-family: 'Arial';color: #025196af">Quotes</a>
+                            <ng-template ngbNavContent>
+                                <form class="user" autocomplete="off" (ngSubmit)="submitQuote()">
+                                    <label
+                                        for="uploadFile"
+                                        style ="display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        width: 100%;
+                                        height: 100%;"
+                                        class="card bg-faded p-2 text-center mb-3 my-drop-zone">
+                                        <i class="fa fa-upload fa-3x"></i>
+                                        Click to select the Quote
+                                    </label>
+                                    
+                                    <label class="text-warning mb-3">{{file==null?'select a file to activate the submit button':''}}</label>
+                                    <label class="text-info mb-3">{{file!=null?file.name+"is selected":''}}</label>
+                                    
+                                    <input id ="uploadFile"  name="uploadFile" type="file" style="display:none" (change)="fileChange($event)" accept=".pdf,.doc,.docx">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button (click)="rejectQuote()" class="btn btn-outline-secondary me-md-2" type="button">reject the quote</button>
+                                        <button type="submit" data-bs-dismiss="modal" [disabled]="file==null ?true:false" class="btn btn-outline-primary" type="button">submit</button>
+                                    </div>
+                                </form>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Track project Expnation modal-->
+<div class="modal fade" id="trackProjectExplanation" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" >
+                    <h5 class="modal-title" id="staticBackdropLabel">Explanation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fileNull(); projectNull()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <ol>
+                        <li>Create a new project by expressing a request</li>
+                        <li>You'll find the quote after your request is treated by our employees</li>
+                        <li>You need to download the quote and sign it then upload it. this will turn it into a contract</li>
+                        <li>When the realization time comes, you'll find your project in the "In progress" part</li>
+                        <li>If you have any problem with a delivered project you can express it by opening a new ticket, then you'll find this project in the maintenance part.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<app-footer></app-footer>
+<!-- End of Footer -->

@@ -1,0 +1,226 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 style="font-family: 'Arial';color: #025196af">Pipeline Of Sales</h1>
+            </div>
+            <div class="row">
+                <!--Quotes-->
+                <div class="col-md-3 shadow">
+                    <ul class="price">
+                        <div class="card-body bg-white">
+                            <div class="d-flex no-block">
+                                <h4 class="card-title">Quotes<br></h4>
+                                <div class="ml-auto position-relative">
+                                    <button type="button" class="btn btn-dark position-absolute mx-5 rounded-pill">
+                                        Total<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                                     </button><br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-white">
+                            <div class="table-responsive">
+                                <table class="table table-hover earning-box table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Customer</th>
+                                            <th>Creation Date</th>
+                                            <!--date d'ajout de doc devis-->
+                                            <th>Subject</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let entreprise of clientEntreprisesQuotes;">
+                                        <tr (click)="open(content)" class="table-light" *ngFor="let quote of entreprise.projects;">
+                                            <td style="width:50px;"><span class="round"></span></td>
+                                            <td>
+                                                <h6>{{entreprise.name}}</h6>
+                                            </td>
+                                            <td><span class="label label-success">{{quote.creationDate | date:'dd/mm/yyyy'}}</span></td>
+                                            <td>{{quote.subject}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+                <!--Contract-->
+                <div class="col-md-3 shadow">
+                    <ul class="price">
+                        <div class="card-body bg-white">
+                            <div class="d-flex no-block">
+                                <h4 class="card-title">Contract<br></h4>
+                                <div class="ml-auto position-relative">
+                                    <button type="button" class="btn btn-dark position-absolute mx-5 rounded-pill">
+                                        Total<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                                     </button><br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-white">
+                            <div class="table-responsive">
+                                <table class="table table-hover earning-box table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Customer</th>
+                                            <th>Creation Date</th>
+                                            <!--date d'ajout de doc devis-->
+                                            <th>Subject</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let entreprise of clientEntreprisesContracts;">
+                                        <tr (click)="open(content)" class="table-light" *ngFor="let contract of entreprise.projects;">
+                                            <td style="width:50px;"><span class="round"></span></td>
+                                            <td>
+                                                <h6>{{entreprise.name}}</h6>
+                                            </td>
+                                            <td><span class="label label-success">{{contract.creationDate | date:'dd/mm/yyyy'}}</span></td>
+                                            <td>{{contract.subject}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+                <div class="col-md-3 shadow">
+                    <ul class="price">
+                        <div class="card-body bg-white">
+                            <div class="d-flex no-block">
+                                <h4 class="card-title">In progress<br></h4>
+                                <div class="ml-auto position-relative">
+                                    <button type="button" class="btn btn-dark position-absolute mx-5 rounded-pill">
+                                        Total<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                                     </button><br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-white">
+                            <div class="table-responsive">
+                                <table class="table table-hover earning-box table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Customer</th>
+                                            <th>Creation Date</th>
+                                            <!--date d'ajout de doc devis-->
+                                            <th>Subject</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let entreprise of clientEntreprisesInProgress;">
+                                        <tr (click)="open(content)" class="table-light" *ngFor="let inProgress of entreprise.projects;">
+                                            <td style="width:50px;"><span class="round"></span></td>
+                                            <td>
+                                                <h6>{{entreprise.name}}</h6>
+                                            </td>
+                                            <td><span class="label label-success">{{inProgress.creationDate | date:'dd/mm/yyyy'}}</span></td>
+                                            <td>{{inProgress.subject}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+                <div class="col-md-3 shadow">
+                    <ul class="price">
+                        <div class="card-body bg-white">
+                            <div class="d-flex no-block">
+                                <h4 class="card-title">Quotes<br></h4>
+                                <div class="ml-auto position-relative">
+                                    <button type="button" class="btn btn-dark position-absolute mx-5 rounded-pill">
+                                        Total<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                                     </button><br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-white">
+                            <div class="table-responsive">
+                                <table class="table table-hover earning-box table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Customer</th>
+                                            <th>Creation Date</th>
+                                            <!--date d'ajout de doc devis-->
+                                            <th>Subject</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let entreprise of clientEntreprisesMaintenance;">
+                                        <tr (click)="open(content)" class="table-light" *ngFor="let maintenance of entreprise.projects;">
+                                            <td style="width:50px;"><span class="round"></span></td>
+                                            <td>
+                                                <h6>{{entreprise.name}}</h6>
+                                            </td>
+                                            <td><span class="label label-success">{{maintenance.creationDate | date:'dd/mm/yyyy'}}</span></td>
+                                            <td>{{maintenance.subject}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<app-footer></app-footer>
+<!-- End of Footer -->
+<!--Modal Details Project-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Project Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Stage:</label>
+                <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="dateOfBirth">Start Date</label>
+                <div class="input-group">
+                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                    <button class="btn btn-outline-secondary fa fa-calendar" (click)="dp.toggle()" type="button"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="dateOfBirth">Delivery Date</label>
+                <div class="input-group">
+                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                    <button class="btn btn-outline-secondary fa fa-calendar" (click)="dp.toggle()" type="button"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Customer:</label>
+                <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Subject:</label>
+                <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">File:</label>
+                <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Description:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Close</button>
+    </div>
+</ng-template>

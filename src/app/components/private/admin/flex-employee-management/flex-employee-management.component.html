@@ -1,0 +1,194 @@
+<app-topbar></app-topbar>
+
+<div style="display: flex; flex-grow: grow;" class=' bg-light'>
+    <app-sidebar></app-sidebar>
+
+    <div class="container mt-3 ">
+        <div class="card text-center ">
+            <div class="card-header bg-white shadow-lg card">
+                <nav class=" navbar navbar-expand-lg navbar-white bg-white ">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active h6 text-gray-800 mx-3 mt-1" aria-current="true" href="#">Employees Accounts List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <input class="form-control me-2 bg-light small" type="search" [(ngModel)]="employeeName" placeholder="find employee by name" aria-label="Search">
+                                </li>
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-primary mx-2" (click)="search()">Search</button>
+                                </li>
+                            </ul>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add Employee Account</button>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Button trigger modal -->
+                <div class="mr-2 d-flex mr-auto">
+
+                </div>
+            </div>
+            <div class="card-body bg-dark">
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Full name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Adding date</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let flexEmployee of flexEmployees;let i=index" style="font-family: '=Montserrat:ital,wght@0,100;', sans-serif;">
+                        <tr>
+                            <th scope="row">{{i}}</th>
+                            <td>{{flexEmployee.userName}}</td>
+                            <td>{{flexEmployee.email}}</td>
+                            <td>{{flexEmployee.role}}</td>
+                            <td>{{flexEmployee.department}}</td>
+                            <td>{{flexEmployee.creationDate | date:'MMMM d, y'}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                select Action
+                            </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="putActualValues(flexEmployee)" data-bs-toggle="modal" data-bs-target="#updateFormModal">Update</a></li>
+                                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteFlexEmployee(flexEmployee.id)">Delete</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Employee -->
+    <div class="modal fade" id="addEmployeeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Employee Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" [formGroup]="registerForm" (ngSubmit)="addFlexEmployee()" autocomplete="off">
+                        <div class="mb-3 mb-sm-0 ">
+                            <input [class.is-invalid]='registerForm.get("userName").errors 
+                                && registerForm.get("userName").touched' type="text" class="form-control form-control-user" placeholder="Full Name" formControlName="userName">
+                            <div class="invalid-feedback">Please enter a user name</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='registerForm.get("email").errors 
+                                    && registerForm.get("email").touched' type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="user@email.com" formControlName="email">
+                            <div class="invalid-feedback">Please enter a valid email</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='registerForm.get("phoneNumber").errors 
+                                    && registerForm.get("phoneNumber").touched' type="text" class="form-control form-control-user" placeholder="phoneNumber" formControlName="phoneNumber">
+                            <div class="invalid-feedback">Please enter a valid email</div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <div class="col-sm-6 ">
+                                <input [class.is-invalid]='registerForm.get("gender").errors 
+                                    && registerForm.get("gender").touched' type="text" class="form-control form-control-user" id="examplePhoneNumber" placeholder="gender" formControlName="gender">
+                                <div class="invalid-feedback">Please enter the gender</div>
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0 ">
+                                <div>
+                                    <input type="radio" value="Admin" name="role" formControlName="role" (change)="changeRole($event)">
+                                    <label for="Admin">Admin</label>
+                                </div>
+
+                                <div>
+                                    <input type="radio" value="Employee" name="role" formControlName="role" (change)="changeRole($event)">
+                                    <label for="Employee">Employee</label>
+                                </div>
+                                <div class="invalid-feedback">Please select a Role</div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='registerForm.get("department").errors 
+                                && registerForm.get("department").touched' type="text" class="form-control form-control-user" id="exampleInputAddress" placeholder="Address" formControlName="department">
+                            <div class="invalid-feedback">Please enter the department name</div>
+                        </div>
+                        <div class="form-group row mt-3 my-2">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input [class.is-invalid]='registerForm.get("password").errors 
+                                    && registerForm.get("password").touched' type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" formControlName="password">
+                                <div class="invalid-feedback">Length > 7</div>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <input [class.is-invalid]='registerForm.get("confirmPassword").errors 
+                                        && registerForm.get("confirmPassword").touched' type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" formControlName="confirmPassword">
+                                <div class="invalid-feedback">The password doesn't match</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!registerForm.valid">Add</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update Employee -->
+    <div class="modal fade" id="updateFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Update Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" [formGroup]="updateForm" (ngSubmit)="updateFlexEmployee()" autocomplete="off">
+                        <div class="mb-3 mb-sm-0 ">
+                            <input [class.is-invalid]='updateForm.get("userName").errors 
+                                && updateForm.get("userName").touched' type="text" class="form-control form-control-user" id="name" placeholder="Full Name" formControlName="userName">
+                            <div class="invalid-feedback">Please enter a user name</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='registerForm.get("phoneNumber").errors 
+                                    && registerForm.get("phoneNumber").touched' type="text" class="form-control form-control-user" placeholder="phoneNumber" formControlName="phoneNumber">
+                            <div class="invalid-feedback">Please enter a valid email</div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <div class="col-sm-6 ">
+                                <input [class.is-invalid]='updateForm.get("gender").errors 
+                                    && updateForm.get("gender").touched' type="text" class="form-control form-control-user" placeholder="gender" formControlName="gender">
+                                <div class="invalid-feedback">Please enter the gender</div>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <div>
+                                    <input id="Employee" type="radio" value="Admin" name="role" formControlName="role" (change)="changeRole($event)">
+                                    <label for="Admin">Admin</label>
+                                </div>
+                                <div>
+                                    <input id="Empolyee" type="radio" value="Employee" name="role" formControlName="role" (change)="changeRole($event)">
+                                    <label for="Employee">Employee</label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback">Please select a Role</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input [class.is-invalid]='updateForm.get("department").errors 
+                                && updateForm.get("department").touched' type="text" class="form-control form-control-user" placeholder="Address" formControlName="department">
+                            <div class="invalid-feedback">Please enter the department name</div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!updateForm.valid">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

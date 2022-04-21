@@ -1,0 +1,44 @@
+<!-- Topbar -->
+<app-topbar></app-topbar>
+<!-- End of Topbar -->
+<div style="display: flex; flex-grow: grow" class="bg-light">
+
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <div class="container-xl px-4 mt-4 ">
+        <!-- Account details card-->
+        <div class="card mb-4 shadow-lg">
+            
+            <div class="card-header nav-link active h6 text-gray-800 ">Express Your Request</div>
+            <div class="card-body">
+                <form [formGroup]="requestForm" (ngSubmit)="submit()">
+                    <div class="input-group  input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">Subject</span>
+                        </div>
+                        <input 
+                            [class.is-invalid]='requestForm.get("subject").errors 
+                                && requestForm.get("subject").touched'
+                            formControlName="subject"
+                            type="text"
+                            class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <div class="invalid-feedback">Please enter the subject</div>
+                    
+                    </div>
+                    <ckeditor
+                        [class.is-invalid]='requestForm.get("description").errors 
+                        && requestForm.get("description").touched'
+                        formControlName="description"
+                        (change)="onChange($event)"
+                         [editor]="Editor" placeholder="Hello, feel free to express your need Here!">
+                    </ckeditor>
+                    <div class="invalid-feedback">this area can't be null or exceed a certain number of character</div>
+                    <!-- <div class="text-end">{{contCharacter}}</div>  -->
+                    <br>
+                    <!-- Save changes button-->
+                    <button class="btn btn-primary" type="submit" [disabled]="!requestForm.valid">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
